@@ -1,23 +1,12 @@
 #include <stdio.h>
 #include <string.h>
-#include <windows.h>
 #define MAX 30
-typedef struct{
-    char nome[50];
-    char cpf[12];
-    int idade;
-}Discente;
+#include "menu.h"
+#include "discente.h"
 
-Discente discentes[MAX];
+
 int totalDiscente = 0;
 
-
-void gotoxy(int x,int y){
-    COORD coordenada;
-    coordenada.X = x;
-    coordenada.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coordenada);
-}
 
 void cadastrarDiscente(){
     system("cls");
@@ -50,6 +39,8 @@ void listarDiscente(){
     printf("LISTA DE DISCENTES");
     gotoxy(1,3);
     printf("---------------------------------------------------------");
+    gotoxy(2,4);
+    printf("ID");
     gotoxy(5,4);
     printf("NOME");
     gotoxy(27,4);
@@ -57,8 +48,8 @@ void listarDiscente(){
     gotoxy(47,4);
     printf("IDADE");
     for(int i = 0;i < totalDiscente;i++){
-        gotoxy(5,5 + i);
-        printf("%s",discentes[i].nome);
+        gotoxy(2,5 + i);
+        printf("%d: %s", i + 1 ,discentes[i].nome);
         gotoxy(27,5 + i);
         printf("%s",discentes[i].cpf);
         gotoxy(47,5 + i);
@@ -105,23 +96,27 @@ void editarDiscentes(){
     system("pause");
     system("cls");
 }
-void telaPrincipal(){
-    printf("-----------------------TELA INICIAL-----------------------\n");
-    printf("1: DISCENTES\n");
-    printf("2: CURSOS\n");
-    printf("3: TURMAS\n");
-    printf("4: RELATORIOS\n");
-    printf("5: SAIR\n");
+void excluirDiscente(){
+    int id;
+    printf("------------------------EXCLUIR------------------------\n");
+    listarDiscente();
+    printf("\nESCREVA O ID DO DISCENTE PARA EXCLUIR\n");
+    scanf("%d",&id);
+    if(id < 0 || id > totalDiscente){
+        printf("ID INVALIDO\n");
+        system("pause");
+        return;
+    }
+    getchar();
+    for(int i = id;i < totalDiscente;i++){
+        discentes[i] = discentes[i + 1];
+    }
+    totalDiscente--;
+    listarDiscente();
+
+
 }
-void telaSecundaria(){
-    system("cls");
-    printf("----------------------TELA SECUNDARIA---------------------\n");
-    printf("1: CADASTRO\n");
-    printf("2: EDICAO\n");
-    printf("3: LISTAR\n");
-    printf("4: PESQUISA\n");
-    printf("5: SAIR\n");
-}
+
 int opcao(){
     int op;
     scanf("%d",&op);
@@ -132,34 +127,6 @@ int opcao(){
         printf("OPCAO INVALIDA");
         return -1;
     }
-}
-void loop(){
-    int cont = 1;
-    telaSecundaria();
-    while(cont){
-        int op = opcao();
-        switch(op){
-            case 1:
-                cadastrarDiscente();
-                break;
-            case 2:
-                editarDiscentes();
-                break;
-            case 3:
-                listarDiscente();
-                break;
-            case 4:
-                //pesquisarDiscente();
-                break;
-            default:
-                break;
-        }
-        telaSecundaria();
-    }
-}
-int main(){
-    loop();
-return 0;
 }
 
 

@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 typedef struct{
     int numero;
     char cpf[12];
@@ -83,5 +83,5 @@ Turma listarTurmas(){
         printf("Horas de Participacao %d\n\n",turmas[i].horasParticipacao);
     }
     return turmas[i].ano
-}
+}*/
 

@@ -1,24 +1,34 @@
 #include <stdio.h>
+#include "discente.h"
+#include "menu.h"
 
-
-
-
-
-
-
-
-void mostrarDiscente(Discente *discente){
-    printf("Nome do discente: %s\n",discente->nome);
-    printf("");
+void loop(){
+    int cont = 1;
+    telaSecundaria();
+    while(cont){
+        int op = opcao();
+        switch(op){
+            case 1:
+                cadastrarDiscente();
+                break;
+            case 2:
+                editarDiscentes();
+                break;
+            case 3:
+                system("cls");
+                listarDiscente();
+                system("pause");
+                break;
+            case 4:
+                excluirDiscente();
+                break;
+            default:
+                break;
+        }
+        telaSecundaria();
+    }
 }
-
 int main(){
-
-    Discente aluno1;
-
-    cadastrarDiscente(&aluno1);
-    arquivoDiscente(&aluno1);
-    arquivoMostrarDiscente();
-
-    return 0;
+    loop();
+return 0;
 }
