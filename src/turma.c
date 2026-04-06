@@ -1,87 +1,199 @@
-/*#include <stdio.h>
-typedef struct{
-    int numero;
-    char cpf[12];
-    int codigo;
-    int ano;
-    float nota;
-    int horasParticipacao;
-}Turma;
+#include <stdio.h>
+#include <string.h>
+#define MAX 20
+#include "turma.h"
+#include "menu.h"
 
-Turma *turmas = NULL;
+Turma turmas[MAX];
 int totalTurma = 0;
 
 void cadastrarTurma(){
+    limparTela();
     Turma temp;
-
-    printf("Escreva o numero da turma\n");
-    scanf("%d",&temp.nota);
+    printf(" ------------------------CADASTRO TURMA------------------------\n");
+    printf("ESCREVA O NUMERO DA TURMA: ");
+    scanf("%d",&temp.numero);
     getchar();
-    printf("Escreva o cpf do discente\n");
+
+    printf("ESCREVA O CPF DO DISCENTE: ");
     fgets(temp.cpf,sizeof(temp.cpf),stdin);
+    temp.cpf[strcspn(temp.cpf, "\n")] = '\0';
 
-    printf("Escreva o codigo do curso\n");
+    printf("ESCREVA O CODIGO DO CURSO: ");
     scanf("%d",&temp.codigo);
+    getchar();
 
-    printf("Escreva o ano do curso\n");
+    printf("ESCREVA O ANO: ");
     scanf("%d",&temp.ano);
     getchar();
 
-    printf("Escreva a nota\n\n");
+    printf("ESCREVA A NOTA: ");
     scanf("%f",&temp.nota);
     getchar();
 
-    printf("Escreva as horas de participacao\n");
+    printf("ESCREVA AS HORAS DE PARTICIPACAO: ");
     scanf("%d",&temp.horasParticipacao);
     getchar();
 
-    int indexDiscente = buscarDiscenteCPF(temp.cpf);
-
-    if(indexDiscente == -1){
-        printf("Discente nao encontrado!\n");
-        return;
-    }
-    int indexCurso = buscarCurso(temp.codigo);
-
-    if(turmas[indexCurso].numerosParticipante >= cursos[indexCurso].numerosVagas) {
-        printf("Curso cheio!\n");
-        return;
-    }
-
-    turmas = realloc(turmas(totalTurma + 1) * sizeof(Turma));
     turmas[totalTurma] = temp;
-
     totalTurma++;
 
-    cursos[indexCurso].numerosParticipante++;
-
-    printf("Turma cadastrada!\n");
+    printf("\nTURMA CADASTRADO!\n");
+    getchar();
+    limparTela();
 }
 
-int buscarTurma(int numero){
+void listarTurmas(){
+    limparTela();
+    gotoxy(1,1);
+    printf("------------------------------------------------------------------------");
+    gotoxy(30,2);
+    printf("LISTA DE TURMAS");
+    gotoxy(1,3);
+    printf("------------------------------------------------------------------------");
+    gotoxy(1,4);
+    printf("NUMERO");
+    gotoxy(10,4);
+    printf("CPF");
+    gotoxy(27,4);
+    printf("CODIGO");
+    gotoxy(38,4);
+    printf("ANO");
+    gotoxy(47,4);
+    printf("NOTA");
+    gotoxy(55,4);
+    printf("HORAS PARTICIPACAO");
+    for(int i = 0;i < totalTurma;i++){
+        gotoxy(1,5 + i);
+        printf("%d", turmas[i].numero);
+        gotoxy(10,5 + i);
+        printf("%s",turmas[i].cpf);
+        gotoxy(27,5 + i);
+        printf("%d",turmas[i].codigo);
+        gotoxy(38,5 + i);
+        printf("%d",turmas[i].ano);
+        gotoxy(47,5 + i);
+        printf("%.2f",turmas[i].nota);
+        gotoxy(55,5 + i);
+        printf("%d",turmas[i].horasParticipacao);
+    }
+}
+
+int buscarNumeroTurma(){
+    int numero;
+    scanf("%d",&numero);
+    getchar();
     for(int i = 0;i < totalTurma;i++){
         if(turmas[i].numero == numero){
             return i;
         }
-
     }
     return -1;
 }
 
-Turma listarTurmas(){
-    if(totalTurma == 0){
-        printf("Nenhuma Turma cadastrada.\n");
+void editarTurma(){
+    Turma temp;
+
+    limparTela();
+    listarTurmas();
+    printf("\nESCREVA O NUMERO DA TURMA PARA EDITAR\n");
+    int posicao = buscarNumeroTurma();
+    printf("APERTE ENTER PARA EDITAR");
+    getchar();
+    limparTela();
+    if(posicao == -1){
+        printf("\nNUMERO NAO ENCONTRADO OU INCORRETO\n");
+        printf("APERTE ENTER PARA VOLTAR A TELA SECUNDARIA");
+        getchar();
         return;
     }
 
-    for(int i = 0;i< totalTurma;i++){
-        printf("\nTurma: %d\n",turmas[i].numero);
-        printf("CPF discente: %s\n",turmas[i].cpf);
-        printf("Codigo do curso: %d\n",turmas[i].codigo);
-        printf("Ano:  %d\n",turmas[i].ano);
-        printf("Nota: %.2f\n",turmas[i].nota);
-        printf("Horas de Participacao %d\n\n",turmas[i].horasParticipacao);
+    printf("--------------------------EDITAR--------------------------\n");
+    printf("ESCREVA O CPF DO DISCENTE: ");
+    fgets(temp.cpf,sizeof(temp.cpf),stdin);
+    temp.cpf[strcspn(temp.cpf, "\n")] = '\0';
+
+    printf("ESCREVA O CODIGO DO CURSO: ");
+    scanf("%d",&temp.codigo);
+    getchar();
+
+    printf("ESCREVA O ANO: ");
+    scanf("%d",&temp.ano);
+    getchar();
+
+    printf("ESCREVA A NOTA: ");
+    scanf("%f",&temp.nota);
+    getchar();
+
+    printf("ESCREVA AS HORAS DE PARTICIPACAO: ");
+    scanf("%d",&temp.horasParticipacao);
+    getchar();
+
+    temp.numero = turmas[posicao].numero;
+    turmas[totalTurma] = temp;
+    totalTurma++;
+
+    printf("\nEDICAO CONCLUIDA!\n");
+    printf("APERTE ENTER PARA CONTINUAR");
+    getchar();
+    limparTela();
+}
+
+void excluirTurma(){
+    printf("------------------------EXCLUIR------------------------\n");
+    listarTurmas();
+    printf("\nESCREVA NUMERO DA TURMA PARA EXCLUIR\n");
+    int posicao = buscarNumeroTurma();
+    if(posicao == -1){
+        printf("\nNUMERO NAO ENCONTRADO OU INCORRETO\n");
+        printf("APERTE ENTER PARA VOLTAR A TELA SECUNDARIA");
+        getchar();
+        return;
     }
-    return turmas[i].ano
-}*/
+    for(int i = posicao;i < totalTurma;i++){
+        turmas[i] = turmas[i + 1];
+    }
+    totalTurma--;
+    listarTurmas();
+    printf("\nOPERACAO CONCLUIDA\n");
+    printf("APERTE ENTER PARA CONTINUAR\n");
+    getchar();
+}
+
+void arquivoSalvarTurma(){
+    FILE *file = fopen("turmas.txt","w");
+
+    if(file == NULL){
+        printf("\nERRO AO ABRIR ARQUIVO!\n");
+        printf("APERTE ENTER PARA VOLTAR\n");
+        getchar();
+        return;
+    }
+
+    for(int i = 0;i < totalTurma;i++){
+        fprintf(file,"%d;%s;%d;%d;%.2f;%d",turmas[i].numero,turmas[i].cpf,turmas[i].codigo,turmas[i].ano,turmas[i].nota,turmas[i].horasParticipacao);
+    }
+    fclose(file);
+}
+
+void arquivoPuxarTurma(){
+    Turma temp;
+
+    FILE *file = fopen("turmas.txt","r");
+
+    if(file == NULL){
+        printf("\nERRO AO ABRIR ARQUIVO!\n");
+        printf("APERTE ENTER PARA VOLTAR\n");
+        getchar();
+        return;
+    }
+
+    while(fscanf(file,"%d;%[^;];%d;%d;%f;%d",&temp.numero,temp.cpf,&temp.codigo,&temp.ano,&temp.nota,&temp.horasParticipacao) == 6){
+        turmas[totalTurma] = temp;
+        totalTurma++;
+    }
+    fclose(file);
+}
+
+
 

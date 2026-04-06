@@ -8,13 +8,13 @@ typedef struct{
     int idade;
 }Discente;
 
-Discente discentes[MAX];
 
 void cadastrarDiscente();
 void listarDiscente();
 int buscarDiscenteNome();
 void editarDiscentes();
 void excluirDiscente();
-int opcao();
+void arquivoSalvarDiscente();
+void arquivoPuxarDiscente();
 
 #endif // DISCENTE_H
