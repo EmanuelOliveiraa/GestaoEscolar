@@ -3,31 +3,36 @@
 #include "menu.h"
 #include "turma.h"
 #include "curso.h"
+#include "relatorio.h"
+#define MAX 30
+Discente discentes[MAX];
+    int totalDiscente = 0;
 
 void loopDiscente(){
     int flag = 0;
-    arquivoPuxarDiscente();
+    arquivoPuxarDiscente(discentes,&totalDiscente);
     while(flag != 1){
         telaSecundaria();
         int op = opcao();
 
         switch(op){
             case 1:
-                cadastrarDiscente();
+                cadastrarDiscente(discentes,&totalDiscente);
+                ordenarDiscente(discentes,&totalDiscente);
                 break;
             case 2:
-                editarDiscentes();
+                editarDiscentes(discentes,&totalDiscente);
                 break;
             case 3:
-                listarDiscente();
+                listarDiscente(discentes,&totalDiscente);
                 printf("\nAPERTE ENTER PARA CONTINUAR");
                 getchar();
                 break;
             case 4:
-                excluirDiscente();
+                excluirDiscente(discentes,&totalDiscente);
                 break;
             case 5:
-                arquivoSalvarDiscente();
+                arquivoSalvarDiscente(discentes,&totalDiscente);
                 flag = 1;
                 break;
             default:
@@ -38,8 +43,8 @@ void loopDiscente(){
 void loopCurso(){
     int flag = 0;
     arquivoPuxarCurso();
-    telaSecundaria();
     while(flag != 1){
+        telaSecundaria();
         int op = opcao();
 
         switch(op){
@@ -70,8 +75,8 @@ void loopCurso(){
 void loopTurma(){
     int flag = 0;
     arquivoPuxarTurma();
-    telaSecundaria();
     while(flag != 1){
+        telaSecundaria();
         int op = opcao();
 
         switch(op){
@@ -96,18 +101,18 @@ void loopTurma(){
             default:
                 break;
         }
-        telaSecundaria();
     }
 }
 
 void primeiraTela(){
     int flag = 0;
-    telaPrincipal();
     while(flag != 1){
+        limparTela();
+        telaPrincipal();
         int op = opcao();
-
         switch(op){
             case 1:
+
                 loopDiscente();
                 break;
             case 2:
@@ -117,19 +122,22 @@ void primeiraTela(){
                 loopTurma();
                 break;
             case 4:
-                //relatorio
+                lsDiscentePorNome();
                 break;
             case 5:
+                printf("\nPROGRAMA ENCERRADO");
                 flag = 1;
                 break;
             default:
                 break;
         }
-        telaPrincipal();
-
     }
 }
+
 int main(){
+
     primeiraTela();
-return 0;
+    return 0;
 }
+
+

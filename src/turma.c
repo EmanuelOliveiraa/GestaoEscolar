@@ -171,14 +171,14 @@ void arquivoSalvarTurma(){
     }
 
     for(int i = 0;i < totalTurma;i++){
-        fprintf(file,"%d;%s;%d;%d;%.2f;%d",turmas[i].numero,turmas[i].cpf,turmas[i].codigo,turmas[i].ano,turmas[i].nota,turmas[i].horasParticipacao);
+        fprintf(file,"%d;%s;%d;%d;%f;%d\n",turmas[i].numero,turmas[i].cpf,turmas[i].codigo,turmas[i].ano,turmas[i].nota,turmas[i].horasParticipacao);
     }
     fclose(file);
 }
 
 void arquivoPuxarTurma(){
     Turma temp;
-
+    totalTurma = 0;
     FILE *file = fopen("turmas.txt","r");
 
     if(file == NULL){

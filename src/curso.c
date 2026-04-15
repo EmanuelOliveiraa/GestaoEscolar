@@ -159,7 +159,7 @@ void arquivoSalvarCurso(){
         return;
     }
     for(int i = 0;i < totalCurso;i++){
-        fprintf(file,"%s;%d;%d;%d;%d",cursos[i].nome,cursos[i].codigo,cursos[i].horas,cursos[i].numerosVagas,cursos[i].numerosParticipante);
+        fprintf(file,"%s;%d;%d;%d;%d\n",cursos[i].nome,cursos[i].codigo,cursos[i].horas,cursos[i].numerosVagas,cursos[i].numerosParticipante);
     }
     fclose(file);
 }
