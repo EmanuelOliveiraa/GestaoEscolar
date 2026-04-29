@@ -130,8 +130,8 @@ void editarTurma(){
     getchar();
 
     temp.numero = turmas[posicao].numero;
-    turmas[totalTurma] = temp;
-    totalTurma++;
+    turmas[posicao] = temp;
+    //totalTurma++;
 
     printf("\nEDICAO CONCLUIDA!\n");
     printf("APERTE ENTER PARA CONTINUAR");
@@ -161,7 +161,7 @@ void excluirTurma(){
 }
 
 void arquivoSalvarTurma(){
-    FILE *file = fopen("turmas.txt","w");
+    FILE *file = fopen("C:\\Users\\Aluno\\Documents\\escola\\turmas.txt.txt","w+");
 
     if(file == NULL){
         printf("\nERRO AO ABRIR ARQUIVO!\n");
@@ -179,9 +179,11 @@ void arquivoSalvarTurma(){
 void arquivoPuxarTurma(){
     Turma temp;
     totalTurma = 0;
-    FILE *file = fopen("turmas.txt","r");
+    FILE *file = fopen("C:\\Users\\Aluno\\Documents\\escola\\turmas.txt.txt","r");
 
     if(file == NULL){
+                    perror("erro");
+
         printf("\nERRO AO ABRIR ARQUIVO!\n");
         printf("APERTE ENTER PARA VOLTAR\n");
         getchar();

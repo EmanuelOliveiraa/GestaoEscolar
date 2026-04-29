@@ -6,18 +6,21 @@
 #include "relatorio.h"
 
 
-void lsDataDiscente(){
-    listarDiscente();
+void lsDataDiscente(Discente discentes[], int *totalDiscente){
+    arquivoPuxarDiscente(discentes, totalDiscente);
+    listarDiscente(discentes, totalDiscente);
     printf("\nAPERTE ENTER PARA CONTINUAR");
     getchar();
 }
 
 void lsDataCurso(){
+    arquivoPuxarCurso();
     listarCursos();
     printf("\nAPERTE ENTER PARA CONTINUAR");
     getchar();
 }
 
-void lsDiscentePorNome(){
-    discentePorNome();
+void lsDiscentePorNome(Discente discentes[], int *totalDiscente){
+    arquivoPuxarDiscente(discentes, totalDiscente);
+    discentePorNome(discentes, totalDiscente);
 }

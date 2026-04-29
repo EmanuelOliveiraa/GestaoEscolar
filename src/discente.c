@@ -26,7 +26,7 @@ void cadastrarDiscente(Discente discentes[],int *totalDiscente){
     getchar();
 
     discentes[*totalDiscente] = temp;
-    totalDiscente++;
+    (*totalDiscente)++;
 
     printf("\nDISCENTE CADASTRADO!\n");
     getchar();
@@ -137,7 +137,7 @@ void excluirDiscente(Discente discentes[],int *totalDiscente){
 }
 
 void arquivoSalvarDiscente(Discente discentes[],int *totalDiscente){
-    FILE *file = fopen("discente.txt", "w");
+    FILE *file = fopen("C:\\Users\\Aluno\\Documents\\escola\\discente.txt.txt", "w");
 
     if(file == NULL){
         printf("\nERRO AO ABRIR ARQUIVO!\n");
@@ -152,10 +152,12 @@ void arquivoSalvarDiscente(Discente discentes[],int *totalDiscente){
 }
 
 void arquivoPuxarDiscente(Discente discentes[],int *totalDiscente){
-    FILE *file = fopen("discente.txt","r");
+    FILE *file = fopen("C:\\Users\\Aluno\\Documents\\escola\\discente.txt.txt", "r");
+
     Discente temp;
     *totalDiscente = 0;
     if(file == NULL){
+        perror("erro");
         printf("\nERRO AO ABRIR ARQUIVO!\n");
         printf("APERTE ENTER PARA VOLTAR\n");
         getchar();

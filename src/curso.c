@@ -150,7 +150,7 @@ void excluirCurso(){
     getchar();
 }
 void arquivoSalvarCurso(){
-    FILE *file = fopen("curso.txt", "w");
+    FILE *file = fopen("C:\\Users\\Aluno\\Documents\\escola\\curso.txt", "w");
 
     if(file == NULL){
         printf("\nERRO AO ABRIR ARQUIVO!\n");
@@ -165,7 +165,7 @@ void arquivoSalvarCurso(){
 }
 
 void arquivoPuxarCurso(){
-    FILE *file = fopen("curso.txt","r");
+    FILE *file = fopen("C:\\Users\\Aluno\\Documents\\escola\\curso.txt","r");
     Curso temp;
     totalCurso = 0;
     if(file == NULL){

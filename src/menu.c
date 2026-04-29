@@ -29,6 +29,14 @@ void telaSecundaria(){
     printf("4: EXCLUIR\n");
     printf("5: SAIR\n");
 }
+void telaRelatorio(){
+    limparTela();
+    printf("----------------------TELA RELATORIO---------------------\n");
+    printf("1: LISTAR TODOS OS DISCENTES\n");
+    printf("2: LISTAR TODOS OS CURSOS\n");
+    printf("3: LISTAR DISCENTE POR NOME\n");
+    printf("4: SAIR\n");
+}
 void limparTela(){
     printf("\033[H\033[J");
 }

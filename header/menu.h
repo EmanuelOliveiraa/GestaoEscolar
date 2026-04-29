@@ -3,6 +3,7 @@
 void gotoxy(int x,int y);
 void telaPrincipal();
 void telaSecundaria();
+void telaRelatorio();
 void limparTela();
 int opcao();
 

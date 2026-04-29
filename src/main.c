@@ -104,6 +104,32 @@ void loopTurma(){
     }
 }
 
+void loopRelatorio(){
+    int flag = 0;
+    while(flag != 1){
+        telaRelatorio();
+        int op = opcao();
+
+        switch(op){
+            case 1:
+                lsDataDiscente(discentes,&totalDiscente);
+                break;
+            case 2:
+                lsDataCurso();
+                break;
+            case 3:
+                lsDiscentePorNome(discentes,&totalDiscente);
+                break;
+            case 4:
+                printf("\nPROGRAMA ENCERRADO");
+                flag = 1;
+                break;
+            default:
+                break;
+        }
+    }
+}
+
 void primeiraTela(){
     int flag = 0;
     while(flag != 1){
@@ -122,7 +148,10 @@ void primeiraTela(){
                 loopTurma();
                 break;
             case 4:
-                lsDiscentePorNome();
+                //lsDataDiscente(discentes,&totalDiscente);
+                loopRelatorio();
+                //perror("erro");
+
                 break;
             case 5:
                 printf("\nPROGRAMA ENCERRADO");
